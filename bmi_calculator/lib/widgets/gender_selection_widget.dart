@@ -8,29 +8,7 @@ class GenderSelectionWidget extends StatefulWidget {
 }
 
 class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
-  Color femaleColor = inactiveColor;
-  Color maleColor = inactiveColor;
-
-// toggle the effect
-  void updateColor(int gender) {
-    if (gender == 1) {
-      if (maleColor == inactiveColor) {
-        maleColor = activeColor;
-        femaleColor = inactiveColor;
-      } else {
-        maleColor = inactiveColor;
-      }
-    }
-    // female pressed
-    else {
-      if (femaleColor == inactiveColor) {
-        femaleColor = activeColor;
-        maleColor = inactiveColor;
-      } else {
-        femaleColor = inactiveColor;
-      }
-    }
-  }
+  Gender selectedGender;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +19,15 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  updateColor(1);
+                  selectedGender = Gender.male;
                 });
               },
               child: Container(
                 margin: EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: maleColor,
+                  color: selectedGender == Gender.male
+                      ? activeColor
+                      : inactiveColor,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -67,13 +47,15 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  updateColor(2);
+                  selectedGender = Gender.female;
                 });
               },
               child: Container(
                 margin: EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: femaleColor,
+                  color: selectedGender == Gender.female
+                      ? activeColor
+                      : inactiveColor,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -127,5 +109,6 @@ class _IconCardState extends State<IconCard> {
         ),
       ],
     );
+    // return
   }
 }
