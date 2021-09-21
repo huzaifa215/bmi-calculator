@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/data/data_file.dart';
 import 'package:flutter/material.dart';
 class CounterWidget extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class CounterWidget extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Color(0xFF1D1E33),
+                color:activeColor,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
@@ -23,9 +24,8 @@ class CounterWidget extends StatelessWidget {
           Expanded(
             child: Container(
               margin: EdgeInsets.all(15),
-
               decoration: BoxDecoration(
-                color: Color(0xFF1D1E33),
+                color: activeColor,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(

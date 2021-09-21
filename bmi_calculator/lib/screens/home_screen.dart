@@ -25,6 +25,7 @@ class HomeScreen extends StatelessWidget {
           GenderSelectionWidget(),
           HeightWidget(),
           CounterWidget(),
+
           Container(
             margin: EdgeInsets.only(top: 15),
             width: double.infinity,

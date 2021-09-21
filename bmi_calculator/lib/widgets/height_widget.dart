@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/data/data_file.dart';
 import 'package:flutter/material.dart';
 
 class HeightWidget extends StatelessWidget {
@@ -9,7 +10,7 @@ class HeightWidget extends StatelessWidget {
         height: 200,
         width: 330,
         decoration: BoxDecoration(
-          color: Color(0xFF1D1E33),
+          color: activeColor,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
