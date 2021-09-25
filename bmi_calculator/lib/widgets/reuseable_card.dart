@@ -1,16 +1,20 @@
-import 'package:bmi_calculator/data/data_file.dart';
 import 'package:flutter/material.dart';
 
-class HeightWidget extends StatelessWidget {
+class ReuseableCard extends StatelessWidget {
+  final Color color;
+  final Widget cardChild;
+  final Function onPress;
+
+  const ReuseableCard({Key key, this.color, this.cardChild, this.onPress})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return GestureDetector(
+      onTap: onPress,
       child: Container(
         margin: EdgeInsets.all(15),
-        height: 200,
-        width: 330,
         decoration: BoxDecoration(
-          color: activeColor,
+          color: color,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -19,6 +23,7 @@ class HeightWidget extends StatelessWidget {
                 spreadRadius: 0.5),
           ],
         ),
+        child: cardChild,
       ),
     );
   }
