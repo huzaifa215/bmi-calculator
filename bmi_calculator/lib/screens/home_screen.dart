@@ -1,6 +1,9 @@
 import 'package:bmi_calculator/data/data_file.dart';
+import 'package:bmi_calculator/model/bmi_calulation.dart';
+import 'package:bmi_calculator/screens/result_screen.dart';
 import 'package:bmi_calculator/widgets/icon_card.dart';
 import 'package:bmi_calculator/widgets/reuseable_card.dart';
+import 'package:bmi_calculator/widgets/rounded_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   kGender selectedGender;
   int _sliderValue = 180;
+  int _weight = 60;
+  int _age = 19;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +118,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         value: _sliderValue.toDouble(),
                         min: 120.0,
                         max: 250.0,
-
                         label: _sliderValue.toString(),
                         onChanged: (double newValue) {
                           setState(() {
@@ -130,15 +134,123 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Expanded(
                   child: ReuseableCard(
-                      onPress: () {},
-                      color: kInactiveColor,
-                      cardChild: Container()),
+                    onPress: () {},
+                    color: kInactiveColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "WEIGHT",
+                          style: kLabelText,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          textBaseline: TextBaseline.alphabetic,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          children: [
+                            Text(
+                              _weight.toString(),
+                              style: kNumberTextStyle,
+                            ),
+                            Text(
+                              "Kg",
+                              style: kLabelText,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              child: Icon(
+                                Icons.remove,
+                                size: 20,
+                              ),
+                              onPress: () {
+                                setState(() {
+                                  _weight--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RoundIconButton(
+                              child: Icon(
+                                Icons.add,
+                                size: 20,
+                              ),
+                              onPress: () {
+                                setState(() {
+                                  _weight++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: ReuseableCard(
-                      onPress: () {},
-                      color: kInactiveColor,
-                      cardChild: Container()),
+                    onPress: () {},
+                    color: kInactiveColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "AGE",
+                          style: kLabelText,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          textBaseline: TextBaseline.alphabetic,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          children: [
+                            Text(
+                              _age.toString(),
+                              style: kNumberTextStyle,
+                            ),
+                            Text(
+                              "yr",
+                              style: kLabelText,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              child: Icon(
+                                Icons.remove,
+                                size: 20,
+                              ),
+                              onPress: () {
+                                setState(() {
+                                  _age--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RoundIconButton(
+                              child: Icon(
+                                Icons.add,
+                                size: 20,
+                              ),
+                              onPress: () {
+                                setState(() {
+                                  _age++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -146,16 +258,25 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: EdgeInsets.only(bottom: 10),
             child: FloatingActionButton(
-            foregroundColor:Colors.white,
-            hoverColor: Color(0x29EB1555),
-            backgroundColor:Color(0xFFEB1555),
-                elevation: 10,
-                heroTag: 1,
-                onPressed: (){},child: Icon(Icons.arrow_forward)
-            // FaIcon(
-            //     FontAwesomeIcons.subscript,
-            //   size: 25,
-            // ),
+              foregroundColor: Colors.white,
+              hoverColor: Color(0x29EB1555),
+              backgroundColor: Color(0xFFEB1555),
+              elevation: 10,
+              onPressed: () {
+                BMICalculation bmi = new BMICalculation(
+                    weight: this._weight, height: this._sliderValue);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultScreen(
+                              bmiResult: bmi.calculateBMI(),
+                              resultText: bmi.getResult(),
+                              interpretation: bmi.getInterpretation(),
+                              finalResult:
+                                  "My BMI is ${bmi.calculateBMI()} and it is consider as ${bmi.getResult()}. The Doctor has recommended me that ${bmi.getInterpretation()}",
+                            )));
+              },
+              child: Icon(Icons.arrow_forward),
             ),
           ),
         ],
